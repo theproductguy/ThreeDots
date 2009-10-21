@@ -63,19 +63,22 @@
 					/*alert('<span class="'	+ $.fn.ThreeDots.settings.text_span_class + '">'
 														+ $.fn.ThreeDots.settings.delimitor_string 
 														+ '</span>');*/
-					$(curr_this).append('<span class="'	+ $.fn.ThreeDots.settings.e_span_class + '">'
-														+ $.fn.ThreeDots.settings.delimitor_string 
+					$(curr_this).append('<span style="white-space:nowrap" class="'	
+														+ $.fn.ThreeDots.settings.e_span_class + '">'
+														+ $.fn.ThreeDots.settings.ellipsis_string 
 														+ '</span>');
 	
 					// remove 1 word at a time UNTIL max_rows
 					while (num_rows(curr_this) > max_rows) {
 						
 						lws = the_last_word($(curr_text_span).text());
+
+						$(curr_text_span).text(lws.updated_string);
+						last_word = lws.word;
+						last_del = lws.del;
 						
-						if (lws != null) {
-							$(curr_text_span).text(lws.updated_string);
-							last_word = lws.word;
-							last_del = lws.del;
+						if (lws.del == null) {
+							break;					
 						}
 					}
 	
@@ -83,8 +86,10 @@
 					if (last_word != null) {
 						if (num_rows(curr_this) == max_rows - 1) {
 							last_text = $(curr_text_span).text();
-							$(curr_text_span).text(last_text + last_del);
-							
+							if (lws.del != null) {
+								$(curr_text_span).text(last_text + last_del);
+							}
+									
 							if (num_rows(curr_this) > max_rows) {
 								// undo what i just did and stop
 								$(curr_text_span).text(last_text);
@@ -99,6 +104,11 @@
 										if ($(curr_text_span).text().length > 0) {
 											$(curr_text_span).text($(curr_text_span).text().substr(0, curr_text_span.text().length - 1));
 										} else {
+											/* 
+											 there is no hope for you; you are crazy;
+											 either pick a shorter ellipsis_string OR
+											 use a wider object --- geeze!
+											 */
 											break;
 										}
 									}							
@@ -116,7 +126,7 @@
 	
 	$.fn.ThreeDots.settings = {
 		valid_delimitors: 	[' ', ',', '.'], // what defines the bounds of a word to you?
-		delimitor_string: 	'...',
+		ellipsis_string: 	'...',
 		max_rows:			2,
 		text_span_class:	'ellipsis_text',
 		e_span_class:		'threedots_ellipsis',
@@ -174,10 +184,17 @@
 		
 		// return data structure of word reduced string and the last word
 		if (lastest_word_idx > 0) {
-//alert('['+lastest_word+'|'+str.substring(0,lastest_word_idx-1)+']');
-			return {updated_string:jQuery.trim(str.substring(0,lastest_word_idx/*-1*/)), word:lastest_word, del:lastest_del};
+			return {
+				updated_string:	jQuery.trim(str.substring(0, lastest_word_idx/*-1*/)),
+				word: 			lastest_word,
+				del: 			lastest_del
+			};
 		} else {
-			return null;
+			return {
+				updated_string:	'',
+				word: 			jQuery.trim(str),
+				del: 			null
+			};
 		}
 	}
 			
