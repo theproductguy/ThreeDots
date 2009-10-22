@@ -37,12 +37,13 @@
 			$.fn.ThreeDots.the_selected.each(function() {
 				// element-specific code here
 				curr_this = $(this);
-
-				
 				
 				// obtain the text span
-				// TODO: add check to make sure the SPAN exists
 				curr_text_span = $(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).get(0);
+				if ($(curr_text_span).length == 0) { 
+					// if span doesnt exist, then go to next
+					return true;
+				}
 
 				// if the object has been initialized, then user must be calling UPDATE
 				// THEREFORE refresh the text area before re-operating
@@ -84,7 +85,8 @@
 	
 					// check for super long words
 					if (last_word != null) {
-						if (num_rows(curr_this) == max_rows - 1) {
+						var is_dangling = dangling_ellipsis(curr_this);//alert(is_dangling);
+						if ((num_rows(curr_this) == max_rows - 1) || (is_dangling)) {
 							last_text = $(curr_text_span).text();
 							if (lws.del != null) {
 								$(curr_text_span).text(last_text + last_del);
@@ -98,11 +100,15 @@
 								$(curr_text_span).text($(curr_text_span).text() + last_word);
 								
 								// break up the last word IFF (1) word is longer than a line, OR (2) whole_word == false
-								if ((num_rows(curr_this) > max_rows + 1) || (!$.fn.ThreeDots.settings.whole_word)) {
+								if ((num_rows(curr_this) > max_rows + 1) 
+									|| (!$.fn.ThreeDots.settings.whole_word)
+									|| is_dangling) {
 									// remove 1 char at a time until it all fits
 									while (num_rows(curr_this) > max_rows) {
 										if ($(curr_text_span).text().length > 0) {
-											$(curr_text_span).text($(curr_text_span).text().substr(0, curr_text_span.text().length - 1));
+											$(curr_text_span).text(
+												$(curr_text_span).text().substr(0, $(curr_text_span).text().length - 1)
+											);
 										} else {
 											/* 
 											 there is no hope for you; you are crazy;
@@ -130,8 +136,9 @@
 		max_rows:			2,
 		text_span_class:	'ellipsis_text',
 		e_span_class:		'threedots_ellipsis',
-		whole_word:			true
-		
+		whole_word:			true,
+		allow_dangle:		false
+	
 		/*
 		  
 		  alt-text-e: true // mouse over of ellipsis displays the full text
@@ -140,6 +147,31 @@
 		  if you want something to behave like a link (or whatever), use $().wrap()
 		 */
 	};
+
+	function dangling_ellipsis(obj){
+		if ($.fn.ThreeDots.settings.allow_dangle == true) {
+			return false; // why do when no doing need be done?
+		}
+		
+		// initialize variables
+		var ellipsis_obj 		= $(obj).children('.'+$.fn.ThreeDots.settings.e_span_class).get(0);
+		var remember_display 	= $(ellipsis_obj).css('display');
+		var num_rows_before 	= num_rows(obj);
+		
+		// temporarily hide ellipsis
+		$(ellipsis_obj).css('display','none');
+		var num_rows_after 		= num_rows(obj);
+
+		// restore ellipsis
+		$(ellipsis_obj).css('display',remember_display);
+		
+		if (num_rows_before > num_rows_after) {
+			return true; 	// ASSUMPTION: 	removing the ellipsis changed the height
+							// 				THEREFORE the ellipsis was on a row all by its lonesome
+		} else {
+			return false;	// nothing dangling here
+		}
+	}
 
 	function num_rows(obj){
 		// only need to calculate once

@@ -9,12 +9,13 @@
 	<script type="text/javascript">  
 		$(document).ready(function () {
 			the_obj = $('.text_here').ThreeDots({max_rows:1});
-			alert("a");
+			alert("1");
 			$(the_obj).ThreeDots.update({max_rows:3});
-			alert("b");
+			alert("3");
 			$(the_obj).ThreeDots.update({max_rows:100});
-			alert("c");
+			alert("100");
 			$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'<a href="google.com">(click here)</a>'});
+			alert("1");
 		});  
 	
 	
