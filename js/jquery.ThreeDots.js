@@ -1,5 +1,8 @@
 /**
  * @author Jeremy Horn
+ this plugin WILL handle words too long for the line if you told the containers to via the CSS, for example, through using the styles...
+ 
+ @ developed in aptana studio 1.5.1
  */
 
 (function($) {
@@ -21,7 +24,7 @@
 		var curr_this, last_word = null;
 		var lineh, paddingt, paddingb, innerh, temp_height;
 		var curr_text_span, lws; /* last word structure */
-		var last_text, three_dots_value;
+		var last_text, three_dots_value, last_del;
 
 		// check for new & valid options
 		if ((typeof options == 'object') || (options == undefined)) {
@@ -32,6 +35,17 @@
 			if (max_rows < 1) {
 				return $.fn.ThreeDots.the_selected;
 			}
+
+			// make sure at least 1 valid delimiter
+			var valid_delimiter_exists = false;
+			jQuery.each($.fn.ThreeDots.settings.valid_delimiters, function(i, curr_del) {
+				if (((new String(curr_del)).length == 1)) {
+					valid_delimiter_exists = true; 
+				}
+			});
+			if (valid_delimiter_exists == false) {
+				return $.fn.ThreeDots.the_selected;
+			}
 			
 			// process all provided objects
 			$.fn.ThreeDots.the_selected.each(function() {
@@ -39,11 +53,14 @@
 				curr_this = $(this);
 				
 				// obtain the text span
-				curr_text_span = $(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).get(0);
-				if ($(curr_text_span).length == 0) { 
+				if ($(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).length == 0) { 
 					// if span doesnt exist, then go to next
 					return true;
 				}
+				curr_text_span = $(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).get(0);
+
+				// remember where it all began so that we can see if we ended up exactly where we started
+				var init_text_span = $(curr_text_span).text();
 
 				// if the object has been initialized, then user must be calling UPDATE
 				// THEREFORE refresh the text area before re-operating
@@ -77,16 +94,19 @@
 						$(curr_text_span).text(lws.updated_string);
 						last_word = lws.word;
 						last_del = lws.del;
-						
+
 						if (lws.del == null) {
 							break;					
 						}
-					}
-	
+					} // while (num_rows(curr_this) > max_rows)
+
 					// check for super long words
 					if (last_word != null) {
 						var is_dangling = dangling_ellipsis(curr_this);//alert(is_dangling);
-						if ((num_rows(curr_this) == max_rows - 1) || (is_dangling)) {
+
+						if ((num_rows(curr_this) == max_rows - 1) 
+							|| (is_dangling) 
+							|| (!$.fn.ThreeDots.settings.whole_word)) {
 							last_text = $(curr_text_span).text();
 							if (lws.del != null) {
 								$(curr_text_span).text(last_text + last_del);
@@ -122,16 +142,21 @@
 							}
 						}
 					}
-				}				
-			});
+				}	
+				
+				// if nothing has changed, remove the ellipsis
+				if (init_text_span == $($(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).get(0)).text()) {
+					$(curr_this).children('.'+$.fn.ThreeDots.settings.e_span_class).remove();
+				}
+				
+			}); // $.fn.ThreeDots.the_selected.each(function() 
 		}
 		
 		return $.fn.ThreeDots.the_selected;
 	};
 
-	
 	$.fn.ThreeDots.settings = {
-		valid_delimitors: 	[' ', ',', '.'], // what defines the bounds of a word to you?
+		valid_delimiters: 	[' ', ',', '.'], // what defines the bounds of a word to you?
 		ellipsis_string: 	'...',
 		max_rows:			2,
 		text_span_class:	'ellipsis_text',
@@ -144,7 +169,6 @@
 		  alt-text-e: true // mouse over of ellipsis displays the full text
 		  alt-text-t: true // if ellipsis displayed, mouse over of text displays the full text
 		  
-		  if you want something to behave like a link (or whatever), use $().wrap()
 		 */
 	};
 
@@ -152,12 +176,12 @@
 		if ($.fn.ThreeDots.settings.allow_dangle == true) {
 			return false; // why do when no doing need be done?
 		}
-		
+
 		// initialize variables
 		var ellipsis_obj 		= $(obj).children('.'+$.fn.ThreeDots.settings.e_span_class).get(0);
 		var remember_display 	= $(ellipsis_obj).css('display');
 		var num_rows_before 	= num_rows(obj);
-		
+
 		// temporarily hide ellipsis
 		$(ellipsis_obj).css('display','none');
 		var num_rows_after 		= num_rows(obj);
@@ -192,7 +216,7 @@
 	
 	function the_last_word(str){
 		var temp_word_index;
-		var v_del = $.fn.ThreeDots.settings.valid_delimitors;
+		var v_del = $.fn.ThreeDots.settings.valid_delimiters;
 		
 		// trim the string
 		str = jQuery.trim(str);
@@ -201,14 +225,19 @@
 		var lastest_word_idx = -1;
 		var lastest_word = null;
 		var lastest_del = null;
-		
+
 		// for all given delimiters, determine which delimiter results in the smallest word cut
 		jQuery.each(v_del, function(i, curr_del){
-			tmp_word_index = str.lastIndexOf(curr_del);
+			if (((new String(curr_del)).length != 1)
+				|| (curr_del == null)) {  // implemented to handle IE NULL condition; if only typeof could say CHAR :(
+				return false; // INVALID delimiter; must be 1 character in length
+			}
+
+			var tmp_word_index = str.lastIndexOf(curr_del);
 			if (tmp_word_index != -1) {
 				if (tmp_word_index > lastest_word_idx) {
 					lastest_word_idx 	= tmp_word_index;
-					lastest_word 		= str.substring(lastest_word_idx);
+					lastest_word 		= str.substring(lastest_word_idx+1);
 					lastest_del			= curr_del;
 				}
 			}
