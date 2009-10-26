@@ -8,75 +8,236 @@
 
 	<script type="text/javascript">  
 		$(document).ready(function () {
+			// SECTION ONE: basic demos/tests //
+
 			// row 1
-			var the_obj = $('.text_here').ThreeDots({max_rows:1});
-alert("group 1: "+the_obj.the_text);
+			var the_obj = $('.text_here').ThreeDots({
+				max_rows: 1
+			});
 
 			// row 2
-			var the_obj2 = $('.text_here2').ThreeDots({max_rows:1});
-			$(the_obj2).ThreeDots.update({max_rows:3});
-alert("group 2: "+the_obj2.the_text);
+			var the_obj2 = $('.text_here2').ThreeDots({
+				max_rows: 3
+			});
 			
 			// row 3
-alert("group 1: "+the_obj.the_text);
-			var the_obj = $('.text_here3').ThreeDots({max_rows:1});
-alert("group 3: "+the_obj.the_text);
-			$(the_obj).ThreeDots.update({max_rows:3});
-alert("group 3: "+the_obj.the_text);
-			$(the_obj).ThreeDots.update({max_rows:100});
-alert("group 3: "+the_obj.the_text);
+			var the_obj = $('.text_here3').ThreeDots({
+				max_rows: 100
+			});
 
 			// row 4 - 6
-			var the_obj = $('.text_here4').ThreeDots({max_rows:1});
-			$(the_obj).ThreeDots.update({max_rows:3});
-			$(the_obj).ThreeDots.update({max_rows:100});
-			$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'<a href="google.com">(click here)</a>'});
+			var the_obj = $('.text_here4').ThreeDots({
+				max_rows: 1,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
+			
+			// SECTION TWO: whole-word demos/tests //
 			
 			// row 7
-			var the_obj = $('.text_here5').ThreeDots({max_rows:1, whole_word:false});
+			var the_obj = $('.text_here5').ThreeDots({
+				max_rows: 1,
+				whole_word: false
+			});
 
 			// row 8
-			var the_obj = $('.text_here6').ThreeDots({max_rows:1, whole_word:false});
-			$(the_obj).ThreeDots.update({max_rows:3});
+			var the_obj = $('.text_here6').ThreeDots({
+				max_rows: 3,
+				whole_word: false
+			});
 			
 			// row 9
-			var the_obj = $('.text_here7').ThreeDots({max_rows:1, whole_word:false});
-			$(the_obj).ThreeDots.update({max_rows:3});
-			$(the_obj).ThreeDots.update({max_rows:100});
+			var the_obj = $('.text_here7').ThreeDots({
+				max_rows: 1,
+				whole_word: false
+			});
+			$(the_obj).ThreeDots.update({
+				max_rows: 100
+			});
 
 			// row 10 - 12
-			var the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false});
-			$(the_obj).ThreeDots.update({max_rows:3});
-			$(the_obj).ThreeDots.update({max_rows:100});
-			$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'<a href="google.com">(click here)</a>'});
+			var the_obj = $('.text_here8').ThreeDots({
+				max_rows: 1,
+				whole_word: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
 			
+			// SECTION THREE: delimiter demos/tests //
+						
 			// row 15
-			var the_obj = $('.text_here9').ThreeDots({max_rows:1, valid_delimiters:[null]});
+			var the_obj = $('.text_here9').ThreeDots({
+				max_rows: 1,
+				valid_delimiters: [null]
+			});
 		
 			// row 16
-			var the_obj = $('.text_here10').ThreeDots({max_rows: 1, whole_word: false, valid_delimiters: [null]});
-			$(the_obj).ThreeDots.update({max_rows:3});
-			$(the_obj).ThreeDots.update({max_rows:100});
-			$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'<a href="google.com">(click here)</a>'});
+			var the_obj = $('.text_here10').ThreeDots({
+				max_rows: 1,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				whole_word: false,
+				valid_delimiters: [null]
+			});
 
 			// row 17
-			var the_obj = $('.text_here11').ThreeDots({max_rows:1, valid_delimiters:['long']});
+			var the_obj = $('.text_here11').ThreeDots({
+				max_rows: 1,
+				valid_delimiters: ['long']
+			});
 			
 			// row 18
-			var the_obj = $('.text_here12').ThreeDots({max_rows: 1, whole_word: false, valid_delimiters: ['long']});
-			$(the_obj).ThreeDots.update({max_rows:3});
-			$(the_obj).ThreeDots.update({max_rows:100});
-			$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'<a href="google.com">(click here)</a>'});
+			var the_obj = $('.text_here12').ThreeDots({
+				max_rows: 1,
+				whole_word: false,
+				valid_delimiters: ['long'],
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
 
 			// row 19&20
-			var the_obj2 = $('.text_here13').ThreeDots({max_rows:1, valid_delimiters:['*']});
+			var the_obj2 = $('.text_here13').ThreeDots({
+				max_rows: 1,
+				valid_delimiters: ['*']
+			});
 			
 			// row 21
-			var the_obj = $('.text_here14').ThreeDots({max_rows: 1, whole_word: false, valid_delimiters: ['*']});
-			$(the_obj).ThreeDots.update({max_rows:3});
-			$(the_obj).ThreeDots.update({max_rows:100});
-			$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'<a href="google.com">(click here)</a>'});
+			var the_obj = $('.text_here14').ThreeDots({
+				max_rows: 1,
+				valid_delimiters: ['*'],
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
 
+			// row 22
+			var the_obj = $('.text_here15').ThreeDots({
+				max_rows: 1,
+				valid_delimiters: ['*'],
+				whole_word: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
+				
+			
+			// SECTION FOUR: Dangles and More Special Cases demos/tests //
+			
+			// row 23
+			var the_obj = $('.text_here16').ThreeDots({
+				max_rows: 0,
+				valid_delimiters: ['*'],
+				whole_word: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
+
+			// row 24
+			var the_obj = $('.text_here17').ThreeDots({
+				max_rows: 2,
+				valid_delimiters: ['*'],
+				whole_word: true,
+				allow_dangle: true,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
+
+			// row 25-26
+			var the_obj = $('.text_here18').ThreeDots({
+				max_rows: 2,
+				valid_delimiters: ['*'],
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
+
+			// row 27
+			var the_obj = $('.text_here19').ThreeDots({
+				max_rows: 2,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
+
+			// row 28
+			var the_obj = $('.text_here20').ThreeDots({
+				max_rows: 1,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>'
+			});
+			
+			// SECTION FIVE: Simple Hover Text demos/tests //
+			
+			// row 29
+			var the_obj = $('.text_here21').ThreeDots({
+				max_rows: 2,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		true,				
+				alt_text_t: 		false 
+			});
+
+			// row 30
+			var the_obj = $('.text_here22').ThreeDots({
+				max_rows: 100,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		true,				
+				alt_text_t: 		false 
+			});
+
+			// row 31
+			var the_obj = $('.text_here23').ThreeDots({
+				max_rows: 2,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		false,				
+				alt_text_t: 		true 
+			});
+
+			// row 32
+			var the_obj = $('.text_here24').ThreeDots({
+				max_rows: 100,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		false,				
+				alt_text_t: 		true 
+			});
+
+			// row 33
+			var the_obj = $('.text_here25').ThreeDots({
+				max_rows: 2,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		false,				
+				alt_text_t: 		false
+			});
+
+			// row 34
+			var the_obj = $('.text_here26').ThreeDots({
+				max_rows: 100,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		false,				
+				alt_text_t: 		false 
+			});
+
+			// row 35
+			var the_obj = $('.text_here27').ThreeDots({
+				max_rows: 2,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		true,				
+				alt_text_t: 		true
+			});
+
+			// row 36
+			var the_obj = $('.text_here28').ThreeDots({
+				max_rows: 100,
+				whole_word: true,
+				allow_dangle: false,
+				ellipsis_string: '<a href="google.com">(click here)</a>',
+				alt_text_e: 		true,				
+				alt_text_t: 		true 
+			});
 
 		});  
 	
@@ -127,7 +288,19 @@ div {
 			</td>
 		</tr>
 		<tr>
+
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- -------------- SECTION ONE, Test/Demo basic functionality --------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+
+			<!-- ROW 1, focus: basic functionality -->
+		
 			<td align="left" valign="top">
+				[01] focus: basic functionality
 				<ol>
 					<li>$('.text_here').ThreeDots({max_rows:1});</li>
 				</ol>
@@ -147,11 +320,14 @@ div {
 				</div>
 			</td>
 		</tr>
+		
+		<!-- ROW 2, focus: max_rows = 3 -->
+
 		<tr>
 			<td align="left" valign="top">
+				[02] focus: max_rows = 3
 				<ol>
-					<li>the_obj = $('.text_here2').ThreeDots({max_rows:1});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
+					<li>the_obj2 = $('.text_here2').ThreeDots({max_rows:3});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -169,12 +345,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 3, focus: max_rows = 100 -->
+
 		<tr>
 			<td align="left" valign="top">
+				[03] focus: max_rows = 100
 				<ol>
-					<li>the_obj = $('.text_here3').ThreeDots({max_rows:1});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
+					<li>the_obj = $('.text_here3').ThreeDots({max_rows:100});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -192,13 +370,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 4, focus: word truncation disable & link as ellipsis -->
+
 		<tr>
 			<td align="left" valign="top">
+				[04] focus: word truncation disabled & link as ellipsis
 				<ol>
-					<li>the_obj = $('.text_here4').ThreeDots({max_rows:1});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here4').ThreeDots({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -216,13 +395,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 5, focus: word truncation disabled & link as ellipsis WITH 1 long word -->
+
 		<tr>
 			<td align="left" valign="top">
+				[05] focus: word truncation disabled & link as ellipsis WITH 1 long word
 				<ol>
-					<li>the_obj = $('.text_here4').ThreeDots({max_rows:1});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here4').ThreeDots({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -236,13 +416,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 6, focus: word truncation disabled & link as ellipsis WITH many long word -->
+
 		<tr>
 			<td align="left" valign="top">
+				[06] focus: word truncation disabled & link as ellipsis WITH many long words
 				<ol>
-					<li>the_obj = $('.text_here4').ThreeDots({max_rows:1});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here4').ThreeDots({max_rows:1, whole_word: false, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -256,6 +437,7 @@ div {
 				</div>
 			</td>
 		</tr>
+		
 <!-- ------------------------------------------------------------------------- -->		
 <!-- ------------------------------------------------------------------------- -->		
 <!-- ------------------------------------------------------------------------- -->		
@@ -263,8 +445,12 @@ div {
 <!-- ------------------------------------------------------------------------- -->		
 <!-- ------------------------------------------------------------------------- -->		
 <!-- ------------------------------------------------------------------------- -->		
+
+		<!-- ROW 7, focus: basic functionality WITH whole_word = false -->
+
 		<tr>
 			<td align="left" valign="top">
+				[07] focus: basic functionality WITH whole_word = false
 				<ol>
 					<li>$('.text_here5').ThreeDots({max_rows:1, whole_word:false});</li>
 				</ol>
@@ -284,11 +470,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 8, focus: max_rows = 3 WITH whole_word = false -->
+
 		<tr>
 			<td align="left" valign="top">
+				[08] focus: max_rows = 3 WITH whole_word = false
 				<ol>
-					<li>the_obj = $('.text_here6').ThreeDots({max_rows:1, whole_word:false});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
+					<li>the_obj = $('.text_here6').ThreeDots({max_rows:3, whole_word:false});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -306,11 +495,14 @@ div {
 				</div>
 			</td>
 		</tr>
+		
+		<!-- ROW 9, focus: max_rows = 1 WITH whole_word = false DESTRUCTED by max_rows = 100 ONLY -->
+
 		<tr>
 			<td align="left" valign="top">
+				[09] focus: max_rows = 1 WITH whole_word = false DESTRUCTED by max_rows = 100 ONLY
 				<ol>
 					<li>the_obj = $('.text_here7').ThreeDots({max_rows:1, whole_word:false});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
 					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
 				</ol>
 			</td>
@@ -329,13 +521,14 @@ div {
 				</div>
 			</td>
 		</tr>
+				
+		<!-- ROW 10, focus: max_rows = 1 WITH whole_word = false AND ellipsis as link -->
+		
 		<tr>
 			<td align="left" valign="top">
+				[10] focus: max_rows = 1 WITH whole_word = false AND ellipsis as link
 				<ol>
-					<li>the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -353,13 +546,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 11, focus: max_rows = 1 WITH whole_word = false AND ellipsis as link WITH 1 long word -->
+		
 		<tr>
 			<td align="left" valign="top">
+				[11] focus: max_rows = 1 WITH whole_word = false AND ellipsis as link WITH 1 long word
 				<ol>
-					<li>the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -373,13 +567,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 12, focus: max_rows = 1 WITH whole_word = false AND ellipsis as link WITH multiple long words -->
+		
 		<tr>
 			<td align="left" valign="top">
+				[12] focus: max_rows = 1 WITH whole_word = false AND ellipsis as link WITH multiple long words
 				<ol>
-					<li>the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -402,9 +597,11 @@ div {
 <!-- ------------------------------------------------------------------------- -->		
 <!-- ------------------------------------------------------------------------- -->		
 
-
+		<!-- ROW 13, focus: max_rows = 1 WITH delimiter emphasis on PERIOD -->
+		
 		<tr>
 			<td align="left" valign="top">
+				[13] focus: max_row = 1 WITH delimiter emphasis on PERIOD
 				<ol>
 					<li>$('.text_here').ThreeDots({max_rows:1});</li>
 				</ol>
@@ -421,13 +618,13 @@ div {
 			</td>
 		</tr>
 		
+		<!-- ROW 14, focus: max_rows = 1 WITH whole_word = false AND ellipsis as link WITH emphasis on PERIOD delimiter -->
+				
 		<tr>
 			<td align="left" valign="top">
+				[14] focus: max_rows = 1 WITH whole_word = TRUE AND ellipsis as link WITH emphasis on PERIOD delimiter
 				<ol>
-					<li>the_obj = $('.text_here8').ThreeDots({max_rows:1, whole_word:false});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here4').ThreeDots({max_rows:1, whole_word:false, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -436,16 +633,17 @@ div {
 				</div>
 			</td>
 			<td align="left" valign="top">
-				<div class="text_here8" style="padding: 5em; margin: 2em; width:220px;">
+				<div class="text_here4" style="padding: 5em; margin: 2em; width:220px;">
 					<span  class='ellipsis_text'>jjj.jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj.jjjjjjjjjjjjjjjjjjjj jjjjjjjjjjjjjjjjjjjjj</span>
 				</div>
 			</td>
 		</tr>
-
-
-
+		
+		<!-- ROW 15, focus: empty delmiter specification -->
+				
 		<tr>
 			<td align="left" valign="top">
+				[15] focus: empty delimiter specification
 				<ol>
 					<li>$('.text_here9').ThreeDots({max_rows:1; valid_delimiters[null]});</li>
 				</ol>
@@ -462,13 +660,13 @@ div {
 			</td>
 		</tr>
 		
+		<!-- ROW 16, focus: empty delmiter specification WITH max_rows = 1 AND ellipsis as LINK AND whole_word = false -->
+						
 		<tr>
 			<td align="left" valign="top">
+				[16] focus: empty delmiter specification WITH max_rows = 1 AND ellipsis as LINK AND whole_word = false 
 				<ol>
-					<li>the_obj = $('.text_here10').ThreeDots({max_rows:1, whole_word:false, valid_delimiters[null]});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here10').ThreeDots({max_rows:1, whole_word:false, valid_delimiters[null], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -482,10 +680,12 @@ div {
 				</div>
 			</td>
 		</tr>
-
-
+		
+		<!-- ROW 17, focus: invalid multi-character delimiter specified -->
+						
 		<tr>
 			<td align="left" valign="top">
+				[17] focus: invalid multi-character delimiter specified
 				<ol>
 					<li>$('.text_here11').ThreeDots({max_rows:1; valid_delimiters['long']});</li>
 				</ol>
@@ -501,14 +701,14 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 18, focus: invalid multi-char delimiter WITH whole_word = false -->
 		
 		<tr>
 			<td align="left" valign="top">
+				[18] focus: invalid multi-char delimiter WITH whole_word = false
 				<ol>
-					<li>the_obj = $('.text_here12').ThreeDots({max_rows:1, whole_word:false, valid_delimiters['long']});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here12').ThreeDots({max_rows:1, whole_word:false, valid_delimiters['long'], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -523,14 +723,13 @@ div {
 			</td>
 		</tr>
 
-
-
-
+		<!-- ROW 19, focus: MISSING CLASS: 'ellipsis_text' AND W/ custom delimiter '*'-->
+		
 		<tr>
 			<td align="left" valign="top">
+				[19] focus: MISSING CLASS: 'ellipsis_text' AND W/ custom delimiter '*'
 				<ol>
-					<li>TESTING MISSING CLASS: 'ellipsis_text'</li>
-					<li>$('.text_here13').ThreeDots({max_rows:1; valid_delimiters['*']});</li>
+					<li>the_obj2 = $('.text_here13').ThreeDots({max_rows:1; valid_delimiters['*']});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -549,10 +748,13 @@ div {
 			</td>
 		</tr>
 
+		<!-- ROW 20, focus: MISSING CLASS part 2: CLASS 'ellipsis_text' is PRESENT AND W/ custom delimiter '*' AND whole_word = TRUE-->
+				
 		<tr>
 			<td align="left" valign="top">
+				[20] focus: MISSING CLASS part 2: CLASS 'ellipsis_text' is PRESENT AND W/ custom delimiter '*'
 				<ol>
-					<li>$('.text_here13').ThreeDots({max_rows:1; valid_delimiters['*']});</li>
+					<li>the_obj2 = $('.text_here13').ThreeDots({max_rows:1; valid_delimiters['*']});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -571,13 +773,13 @@ div {
 			</td>
 		</tr>
 		
+		<!-- ROW 21, focus: custom delimiter '*' AND whole_word = TRUE AND ellipsis_string AS LINK -->
+				
 		<tr>
 			<td align="left" valign="top">
+				[21] focus: custom delimiter '*' AND whole_word = TRUE AND ellipsis_string AS LINK AND CUSTOM DELIMITER '*'
 				<ol>
-					<li>the_obj = $('.text_here14').ThreeDots({max_rows:1, whole_word:false, valid_delimiters['*']});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:3});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:100});</li>
-					<li>$(the_obj).ThreeDots.update({max_rows:1, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+					<li>the_obj = $('.text_here14').ThreeDots({max_rows:1, whole_word:false, valid_delimiters['*'], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
 				</ol>
 			</td>
 			<td align="left" valign="top">
@@ -595,6 +797,358 @@ div {
 				</div>
 			</td>
 		</tr>
+
+		<!-- ROW 22, focus: custom delimiter '*' AND whole_word = FALSE AND ellipsis_string AS LINK AND CUSTOM DELIMITER '*' -->
+				
+		<tr>
+			<td align="left" valign="top">
+				[22] focus: custom delimiter '*' AND whole_word = FALSE AND ellipsis_string AS LINK AND CUSTOM DELIMITER '*'
+				<ol>
+					<li>the_obj = $('.text_here15').ThreeDots({max_rows:1, whole_word:false, valid_delimiters['*'], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af*oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here15" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af*oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+		</tr>
+
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- -------- SECTION FOUR, Test/Demo Dangle and More Special Cases ---------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+
+		<!-- ROW 23, focus: max_rows = 0 -->
+		<tr>
+			<td align="left" valign="top">
+				[23] focus: max_rows = 0
+				<ol>
+					<li>the_obj = $('.text_here16').ThreeDots({max_rows:0, whole_word:false, valid_delimiters['*'], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af*oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here16" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af*oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 24, focus: allow dangling ellipsis -->
+		<tr>
+			<td align="left" valign="top">
+				[24] focus: allow dangling ellipsis
+				<ol>
+					<li>the_obj = $('.text_here17').ThreeDots({max_rows:2, allow_dangle: true, whole_word:true, valid_delimiters['*'], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af*oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here17" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af*oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 25, focus: don't allow dangling ellipsis -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[25] focus: don't allow dangling ellipsis
+				<ol>
+					<li>the_obj = $('.text_here18').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, valid_delimiters['*'], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here18" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>
+						a*d a*.long*iajda.d*afoiaf.af oiaj*fa*.nfa*.fa*ofija*f.a*foiaj*fa.*faoijfa*d.a*oidja*d.a*dai*jdad*.a*odija*d.a*doija*dioj*ad
+					</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 26, focus: empty string -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[26] focus: empty string
+				<ol>
+					<li>the_obj = $('.text_here18').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, valid_delimiters['*'], ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'></span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here18" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'></span>
+				</div>
+			</td>
+		</tr>
+		
+		<!-- ROW 27, focus: leading delimiter -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[27] focus: leading delimiter
+				<ol>
+					<li>the_obj = $('.text_here19').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here19" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 28, focus: only delimiters -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[28] focus: leading delimiter
+				<ol>
+					<li>the_obj = $('.text_here20').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt;'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>........................................................................................................................................................................................................................................................................................................................</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here20" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>........................................................................................................................................................................................................................................................................................................................</span>
+				</div>
+			</td>
+		</tr>
+
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- -------------- SECTION FIVE, Test/Demo Simple Hover Text ---------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+<!-- ------------------------------------------------------------------------- -->		
+
+		<!-- ROW 29, focus: ellipsis hoverable & text not hoverable W/ ELLIPSIS -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[29] focus: ellipsis hoverable & text not hoverable W/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here21').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:true, alt_text_t:false'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here21" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 30, focus: ellipsis hoverable & text not hoverable WO/ ELLIPSIS -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[30] focus: ellipsis hoverable & text not hoverable WO/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here22').ThreeDots({max_rows:100, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:true, alt_text_t:false'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here22" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+
+		<!-- ROW 31, focus: ellipsis not hoverable & text hoverable W/ ELLIPSIS -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[31] focus: ellipsis not hoverable & text hoverable W/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here23').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:false, alt_text_t:true'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here23" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 32, focus: ellipsis not hoverable & text hoverable WO/ ELLIPSIS -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[32] focus: ellipsis not hoverable & text hoverable WO/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here24').ThreeDots({max_rows:100, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:false, alt_text_t:true'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here24" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+
+		<!-- ROW 33, focus: ellipsis not hoverable & text not hoverable -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[33] focus: ellipsis not hoverable & text not hoverable W/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here25').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:false, alt_text_t:false'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here25" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 34, focus: ellipsis not hoverable & text not hoverable -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[34] focus: ellipsis not hoverable & text not hoverable WO/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here26').ThreeDots({max_rows:100, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:false, alt_text_t:false'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here26" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+
+		<!-- ROW 35, focus: ellipsis hoverable & text hoverable -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[35] focus: ellipsis hoverable & text hoverable W/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here27').ThreeDots({max_rows:2, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:false, alt_text_t:false'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here27" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+		<!-- ROW 36, focus: ellipsis hoverable & text hoverable -->
+		
+		<tr>
+			<td align="left" valign="top">
+				[36] focus: ellipsis hoverable & text hoverable WO/ ELLIPSIS
+				<ol>
+					<li>the_obj = $('.text_here28').ThreeDots({max_rows:100, allow_dangle: false, whole_word:true, ellipsis_string:'&lt;a href=&quot;google.com&quot;&gt;(click here)&lt;/a&gt; alt_text_e:false, alt_text_t:false'});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here28" style="padding: 5em; margin: 2em; width:220px;">
+					<span class='ellipsis_text'>.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd.sadasd asdasd</span>
+				</div>
+			</td>
+		</tr>
+
+
+
+
 
 	</table>
 

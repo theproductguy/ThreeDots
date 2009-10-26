@@ -20,6 +20,9 @@
 		return return_value;
 	};
 
+	// TODO: instead of having all options/settings calls be constructive have settings  
+	// associated w/ object returned also accessible from HERE [STATIC settings, 
+	// associated w/ the initial call] 
 	$.fn.ThreeDots.update = function(options) {
 		// initialize local variables
 		var curr_this, last_word = null;
@@ -31,15 +34,16 @@
 		if ((typeof options == 'object') || (options == undefined)) {
 
 			// then update the settings
-			$.extend($.fn.ThreeDots.settings, options);
-			var max_rows = $.fn.ThreeDots.settings.max_rows;
+			// CURRENTLY, settings are not CONSTRUCTIVE, but applied to the DEFAULTS every time
+			$.fn.ThreeDots.c_settings = $.extend({}, $.fn.ThreeDots.settings, options);
+			var max_rows = $.fn.ThreeDots.c_settings.max_rows;
 			if (max_rows < 1) {
 				return $.fn.ThreeDots.the_selected;
 			}
 
 			// make sure at least 1 valid delimiter
 			var valid_delimiter_exists = false;
-			jQuery.each($.fn.ThreeDots.settings.valid_delimiters, function(i, curr_del) {
+			jQuery.each($.fn.ThreeDots.c_settings.valid_delimiters, function(i, curr_del) {
 				if (((new String(curr_del)).length == 1)) {
 					valid_delimiter_exists = true; 
 				}
@@ -50,15 +54,16 @@
 			
 			// process all provided objects
 			$.fn.ThreeDots.the_selected.each(function() {
+
 				// element-specific code here
 				curr_this = $(this);
-				
+		
 				// obtain the text span
-				if ($(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).length == 0) { 
+				if ($(curr_this).children('.'+$.fn.ThreeDots.c_settings.text_span_class).length == 0) { 
 					// if span doesnt exist, then go to next
 					return true;
 				}
-				curr_text_span = $(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).get(0);
+				curr_text_span = $(curr_this).children('.'+$.fn.ThreeDots.c_settings.text_span_class).get(0);
 
 				// remember where it all began so that we can see if we ended up exactly where we started
 				var init_text_span = $(curr_text_span).text();
@@ -67,24 +72,20 @@
 				// THEREFORE refresh the text area before re-operating
 				if ((three_dots_value = $(curr_this).attr('threedots')) != undefined) {
 					$(curr_text_span).text(three_dots_value);						
-					$(curr_this).children('.'+$.fn.ThreeDots.settings.e_span_class).remove();
+					$(curr_this).children('.'+$.fn.ThreeDots.c_settings.e_span_class).remove();
 				}
 
-				
 				last_text = $(curr_text_span).text();
 				if (last_text.length <= 0) {
 					last_text = '';
 				}
 				$(curr_this).attr('threedots', last_text);
-				//alert(num_rows(curr_this)+':'+max_rows);
+
 				if (num_rows(curr_this) > max_rows) {
 					// append the ellipsis span & remember the original text
-					/*alert('<span class="'	+ $.fn.ThreeDots.settings.text_span_class + '">'
-														+ $.fn.ThreeDots.settings.delimitor_string 
-														+ '</span>');*/
-					$(curr_this).append('<span style="white-space:nowrap" class="'	
-														+ $.fn.ThreeDots.settings.e_span_class + '">'
-														+ $.fn.ThreeDots.settings.ellipsis_string 
+					curr_ellipsis = $(curr_this).append('<span style="white-space:nowrap" class="'	
+														+ $.fn.ThreeDots.c_settings.e_span_class + '">'
+														+ $.fn.ThreeDots.c_settings.ellipsis_string 
 														+ '</span>');
 	
 					// remove 1 word at a time UNTIL max_rows
@@ -103,11 +104,12 @@
 
 					// check for super long words
 					if (last_word != null) {
-						var is_dangling = dangling_ellipsis(curr_this);//alert(is_dangling);
+						var is_dangling = dangling_ellipsis(curr_this);
 
 						if ((num_rows(curr_this) == max_rows - 1) 
 							|| (is_dangling) 
-							|| (!$.fn.ThreeDots.settings.whole_word)) {
+							|| (!$.fn.ThreeDots.c_settings.whole_word)) {
+
 							last_text = $(curr_text_span).text();
 							if (lws.del != null) {
 								$(curr_text_span).text(last_text + last_del);
@@ -122,10 +124,10 @@
 								
 								// break up the last word IFF (1) word is longer than a line, OR (2) whole_word == false
 								if ((num_rows(curr_this) > max_rows + 1) 
-									|| (!$.fn.ThreeDots.settings.whole_word)
+									|| (!$.fn.ThreeDots.c_settings.whole_word)
 									|| is_dangling) {
 									// remove 1 char at a time until it all fits
-									while (num_rows(curr_this) > max_rows) {
+									while ((num_rows(curr_this) > max_rows)) {
 										if ($(curr_text_span).text().length > 0) {
 											$(curr_text_span).text(
 												$(curr_text_span).text().substr(0, $(curr_text_span).text().length - 1)
@@ -146,59 +148,46 @@
 				}	
 				
 				// if nothing has changed, remove the ellipsis
-				if (init_text_span == $($(curr_this).children('.'+$.fn.ThreeDots.settings.text_span_class).get(0)).text()) {
-					$(curr_this).children('.'+$.fn.ThreeDots.settings.e_span_class).remove();
+				if (init_text_span == $($(curr_this).children('.' + $.fn.ThreeDots.c_settings.text_span_class).get(0)).text()) {
+					$(curr_this).children('.' + $.fn.ThreeDots.c_settings.e_span_class).remove();
+				} else {				
+					// only add any title text if the ellipsis is visible
+					if (($(curr_this).children('.' + $.fn.ThreeDots.c_settings.e_span_class)).length > 0) {
+						if ($.fn.ThreeDots.c_settings.alt_text_t) {
+							$(curr_this).children('.' + $.fn.ThreeDots.c_settings.text_span_class).attr('title', init_text_span);
+						}
+						
+						if ($.fn.ThreeDots.c_settings.alt_text_e) {
+							$(curr_this).children('.' + $.fn.ThreeDots.c_settings.e_span_class).attr('title', init_text_span);
+						}
+						
+					}
 				}
-				
 			}); // $.fn.ThreeDots.the_selected.each(function() 
 		}
 
-		// can i move this to a function that will handle all settings and options??
-		/*
-		  create local 
-		  		var		the_selected
-		  		var		the_settings
-		  	
-		  extend the_selected w/ merged & updated settings
-		  	if the_settings is 'undefined' then create new object first
-		  	if object exists, then just update the_settings variable
-		  
-		 */
-		if (typeof this.the_text === "undefined") {
-			var newObject = jQuery.extend(true, {}, this);
-			jQuery.extend(newObject, {the_text: (new Date()).toString()});
-			return newObject;
-		} else {
-			return this; //$.fn.ThreeDots.the_selected;
-		}
-
-	//	return $.fn.ThreeDots.the_selected;
+		return $.fn.ThreeDots.the_selected;
 	};
 
 	$.fn.ThreeDots.settings = {
-		valid_delimiters: 	[' ', ',', '.'], // what defines the bounds of a word to you?
+		valid_delimiters: 	[' ', ',', '.'],		// what defines the bounds of a word to you?
 		ellipsis_string: 	'...',
 		max_rows:			2,
 		text_span_class:	'ellipsis_text',
 		e_span_class:		'threedots_ellipsis',
 		whole_word:			true,
-		allow_dangle:		false
-	
-		/*
-		  
-		  alt-text-e: true // mouse over of ellipsis displays the full text
-		  alt-text-t: true // if ellipsis displayed, mouse over of text displays the full text
-		  
-		 */
+		allow_dangle:		false,
+		alt_text_e: 		false,					// if true, mouse over of ellipsis displays the full text
+		alt_text_t: 		false  					// if true & if ellipsis displayed, mouse over of text displays the full text
 	};
 
 	function dangling_ellipsis(obj){
-		if ($.fn.ThreeDots.settings.allow_dangle == true) {
+		if ($.fn.ThreeDots.c_settings.allow_dangle == true) {
 			return false; // why do when no doing need be done?
 		}
 
 		// initialize variables
-		var ellipsis_obj 		= $(obj).children('.'+$.fn.ThreeDots.settings.e_span_class).get(0);
+		var ellipsis_obj 		= $(obj).children('.'+$.fn.ThreeDots.c_settings.e_span_class).get(0);
 		var remember_display 	= $(ellipsis_obj).css('display');
 		var num_rows_before 	= num_rows(obj);
 
@@ -236,7 +225,7 @@
 	
 	function the_last_word(str){
 		var temp_word_index;
-		var v_del = $.fn.ThreeDots.settings.valid_delimiters;
+		var v_del = $.fn.ThreeDots.c_settings.valid_delimiters;
 		
 		// trim the string
 		str = jQuery.trim(str);
