@@ -7,6 +7,7 @@
 
 (function($) {
 	$.fn.ThreeDots = function(options) {
+		var return_value = this;
 
 		// check for new & valid options
 		if ((typeof options == 'object') || (options == undefined)) {
@@ -151,8 +152,27 @@
 				
 			}); // $.fn.ThreeDots.the_selected.each(function() 
 		}
-		
-		return $.fn.ThreeDots.the_selected;
+
+		// can i move this to a function that will handle all settings and options??
+		/*
+		  create local 
+		  		var		the_selected
+		  		var		the_settings
+		  	
+		  extend the_selected w/ merged & updated settings
+		  	if the_settings is 'undefined' then create new object first
+		  	if object exists, then just update the_settings variable
+		  
+		 */
+		if (typeof this.the_text === "undefined") {
+			var newObject = jQuery.extend(true, {}, this);
+			jQuery.extend(newObject, {the_text: (new Date()).toString()});
+			return newObject;
+		} else {
+			return this; //$.fn.ThreeDots.the_selected;
+		}
+
+	//	return $.fn.ThreeDots.the_selected;
 	};
 
 	$.fn.ThreeDots.settings = {

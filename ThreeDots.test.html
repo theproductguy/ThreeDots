@@ -10,15 +10,21 @@
 		$(document).ready(function () {
 			// row 1
 			var the_obj = $('.text_here').ThreeDots({max_rows:1});
+alert("group 1: "+the_obj.the_text);
 
 			// row 2
-			var the_obj = $('.text_here2').ThreeDots({max_rows:1});
-			$(the_obj).ThreeDots.update({max_rows:3});
+			var the_obj2 = $('.text_here2').ThreeDots({max_rows:1});
+			$(the_obj2).ThreeDots.update({max_rows:3});
+alert("group 2: "+the_obj2.the_text);
 			
 			// row 3
+alert("group 1: "+the_obj.the_text);
 			var the_obj = $('.text_here3').ThreeDots({max_rows:1});
+alert("group 3: "+the_obj.the_text);
 			$(the_obj).ThreeDots.update({max_rows:3});
+alert("group 3: "+the_obj.the_text);
 			$(the_obj).ThreeDots.update({max_rows:100});
+alert("group 3: "+the_obj.the_text);
 
 			// row 4 - 6
 			var the_obj = $('.text_here4').ThreeDots({max_rows:1});
