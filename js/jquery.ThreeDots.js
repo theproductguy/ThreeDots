@@ -9,6 +9,11 @@
 	Copyright (c) 2009 Jeremy Horn- jhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
 
+	For more detailed documentation, including the latest updates and links to more usage and 
+	examples, go to:
+	
+			http://tpgblog.com/ThreeDots/
+
 
 	DESCRIPTION
 
@@ -169,6 +174,11 @@
 
 		For latest updates and links to more usage and examples, go to:
 			http://tpgblog.com/ThreeDots/
+			
+	FUTURE NOTE
+	
+		Do not write any code dependent on the c_settings variable.  If you don't know what this is
+		cool -- you don't need to. ;-)  c_settings WILL BE DEPRECATED.
 
 ******************************************************************************************************/
 
@@ -204,18 +214,27 @@
 		return return_value;
 	};
 
+
 	/**********************************************************************************
 
 		METHOD
 			ThreeDots.update {PUBLIC}
 
 		DESCRIPTION
+			applies the core logic of ThreeDots
+			
+			allows for the customization of ellipsis, delimiters, etc., and smart 
+			truncation of provided objects' text
+			
+			updates the objects' visible text to fit within its container(s)
+		
+		TODO
+			instead of having all options/settings calls be constructive have 
+			settings associated w/ object returned also accessible from HERE 
+			[STATIC settings, associated w/ the initial call] 
 
 	**********************************************************************************/
 
-	// TODO: instead of having all options/settings calls be constructive have settings  
-	// associated w/ object returned also accessible from HERE [STATIC settings, 
-	// associated w/ the initial call] 
 	$.fn.ThreeDots.update = function(options) {
 		// initialize local variables
 		var curr_this, last_word = null;
@@ -369,6 +388,10 @@
 			ThreeDots.settings {PUBLIC}
 
 		DESCRIPTION
+			data structure containing the max_rows, ellipsis string, and other
+			behavioral settings
+			
+			can be directly accessed by '$.fn.ThreeDots.settings = ...... ;'
 
 	**********************************************************************************/
 
@@ -384,12 +407,17 @@
 		alt_text_t: 		false  					// if true & if ellipsis displayed, mouse over of text displays the full text
 	};
 
+
 	/**********************************************************************************
 
 		METHOD
 			dangling_ellipsis {private}
 
 		DESCRIPTION
+			determines whether or not the currently calculated ellipsized text
+			is displaying a dangling ellipsis (= an ellipsis on a line by itself)
+			
+			returns true if ellipsis is dangling, otherwise false
 
 	**********************************************************************************/
 
@@ -418,12 +446,14 @@
 		}
 	}
 
+
 	/**********************************************************************************
 
 		METHOD
 			num_rows {private}
 
 		DESCRIPTION
+			returns the number of rows/lines that the current object's text covers  
 
 	**********************************************************************************/
 
@@ -451,6 +481,16 @@
 			the_last_word {private}
 
 		DESCRIPTION
+			return a data structure containing...
+			 
+				[word] 				the last word within the specified text	defined 
+									by the specified valid_delimiters, 
+				[del] 				the delimiter occurring	directly before the 
+									word, and 
+				[updated_string] 	the updated text minus the last word 
+			
+			[del] is null if the last word is the first and/or only word in the text 
+			string
 
 	**********************************************************************************/
 
@@ -490,7 +530,7 @@
 				word: 			lastest_word,
 				del: 			lastest_del
 			};
-		} else {
+		} else { // the lastest word
 			return {
 				updated_string:	'',
 				word: 			jQuery.trim(str),
@@ -506,12 +546,17 @@
 			lineheight_px {private}
 
 		DESCRIPTION
+			returns the line height of a row of the provided text (within the text 
+			span) in pixels
 
 	**********************************************************************************/
 
 	function lineheight_px(obj) {
+		// shhhh... show
 		$(obj).append("<div id='temp_ellipsis_div' style='position:absolute; visibility:hidden'>H</div>");
+		// measure
 		var temp_height = $('#temp_ellipsis_div').height();
+		// cut
 		$('#temp_ellipsis_div').remove();
 
 		return temp_height;
