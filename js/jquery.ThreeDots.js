@@ -1,11 +1,195 @@
-/**
- * @author Jeremy Horn
- this plugin WILL handle words too long for the line if you told the containers to via the CSS, for example, through using the styles...
- 
- @ developed in aptana studio 1.5.1
- */
+/******************************************************************************************************
+
+	jQuery.ThreeDots
+
+	Author Jeremy Horn
+	Version 1.0 (Developed in Aptana Studio 1.5.1)
+	Date: 10/28/2009
+
+	Copyright (c) 2009 Jeremy Horn- jhorn(at)gmail(dot)c0m | http://tpgblog.com
+	Dual licensed under MIT and GPL.
+
+
+	DESCRIPTION
+
+		Sometimes the text ...
+			... is too long ...
+			... won't fit within the number of rows you have available.
+		
+		Sometimes all you need is ... ThreeDots!
+		
+		ThreeDots is a customizable jQuery plugin for the smart truncation of text.  It shortens 
+		provided text to fit specified dimensions and appends the desired ellipsis style
+		if/when truncation occurs.  		
+		
+		For example ---
+		
+			This:
+				There was once a brown fox
+				that liked to eat chocolate
+				pudding.
+			
+			When restricted to 2 lines by ThreeDots, can become:
+				There was once a brown fox
+				that liked to eat ...
+				
+			Or:
+				There was once a brown fox
+				that liked to (click for more)
+
+			... and most any other permutation you desire.
+
+
+	BY DEFAULT
+		The three dots ellipsis ("...") is used, as shown in the prior example, and limits
+		text to a maximum of 2 lines.  These and many other characteristics are fully customizable,
+		and fully itemized and explained below.
+
+
+	IMPLEMENTATION
+
+		HTML:		<div class='text_here'><span class='ellipsis_text'>TEXT</span></div>
+		JS:			$('.text_here').ThreeDots(); // USE DEFAULTS
+					$('.text_here2').ThreeDots({ { max_rows:3 });
+		
+
+	COMPATIBILITY
+
+		Tested in FF3.5, IE7
+		With jQuery 1.3.2
+
+	METHODS
+
+		ThreeDots()
+		
+		When intialized the ThreeDots plugin creates and assigns the full set of provided text 
+		to each container element as a publically accessible attribute, 'threedots'.  Method 
+		implementation supports chaining and returns jQuery object.
+
+		Note that to implement, the text that you wish to ellipsize must be wrapped in a span
+		assigned either the default class 'ellipsis_text' or other custom class of your 
+		preference -- customizable via the options/settings.
+		
+		If the text becomes truncated to fit within the constrained space defined by the 
+		container element that holds the 'ellipsis_text' span then an additional span is
+		appended within the container object, and after the 'ellipsis_text' span.
+		
+		Note, that the span class of 'threedots_ellipsis' can also be customized via the 
+		options/settings and have it's own CSS/jQuery styles/actions/etc. applied to it as
+		desired.
+		
+		If any of the specified settings are invalid or the 'ellipsis_text' span is missing
+		nothing will happen.
+
+		IMPORTANT:	The horizontal constrains placed upon each row are controled by the 
+					container object.  The container object is the object specified in the 
+					primary selector.
+					
+						e.g. $('container_object').ThreeDots();
+		
+						
+		ThreeDots.update()
+			Refreshes the contents of the text within the target object inline with the
+			options provided. Note, that the current implementation of options/settings
+			are destructive.  This means that whenever OPTIONS are specified they are
+			merged with the DEFAULT options and applied to the current object(s), and 
+			destroy/override any previously specified options/settings.
+			
+				example:
+					var obj = $('.text_here').ThreeDots();  // uses DEFAULT: max_rows = 2
+					obj.update({max_rows:3});				// update the text with max_rows = 3
+
+	CUSTOMIZATION
+
+		ThreeDots(OPTIONS)
+		e.g. $('.text_here').ThreeDots({ max_rows: 4 });
+					
+		
+		valid_delimiters:	character array of special characters upon which the text string may be broken up;
+							defines what characters can be used to express the bounds of a word
+							
+							all elements in this array must be 1 character in length; any delimiter less than 
+							or greater than	1 character will be ignored
+														
+							
+		ellipsis_string: 	defines what to display at the tail end of the text provided if the text becomes 
+							truncated to fit within the space defined by the container object
+												
+							
+		max_rows:			specifies the upper limit for the number of rows that the object's text can use
+				
+		
+		text_span_class:	by default ThreeDots will look within the specified object(s) for a span
+							of the class 'ellipsis_text'
+							
+		
+		e_span_class:		if an ellipsis_string is displayed at the tail end of the selected object's
+							text due to truncation of that text then it will be displayed wrapped within
+							a span associated with the class defined by e_span_class and immediately
+							following the text_span_class' span
+		
+		
+		whole_word:			when fitting the provided text to the max_rows within the container object
+							this boolean setting defines whether or not the 
+							
+								if true
+									THEN	don't truncate any words; ellipsis can ONLY be placed after 
+											the last whole word that fits within the provided space, OR
+											
+								if false
+									THEN	maximuze the text within the provided space, allowing the 
+											PARTIAL display of words before the ellipsis
+		
+		
+		allow_dangle:		a dangling ellipsis is an ellipsis that typically occurs due to words that
+							are longer than a single row of text, resulting, upon text truncation in
+							the ellipsis being displayed on a row all by itself
+													
+							if allow_dangle is set to false, whole_words is overridden ONLY in the 
+							circumstances where a dangling ellipsis occurs and the displayed text
+							is adjusted to minimize the occurence of such dangling
+									
+		
+		alt_text_e: 		alt_text_e is a shortcut to enabling the user of the product that 
+							made use of ThreeDots to see the full text, prior to truncation
+							
+							if the value is set to true, then the ellipsis span's title property
+							is set to the full, original text (pre-truncation)
+		
+		
+		alt_text_t: 		alt_text_t is a shortcut to enabling the user of the product that 
+							made use of ThreeDots to see the full text, prior to truncation
+							
+							if the value is set to true AND the ellipsis is displayed, then the 
+							text span's title property is set to the full, original text 
+							(pre-truncation) 
+	
+
+	MORE
+
+		For latest updates and links to more usage and examples, go to:
+			http://tpgblog.com/ThreeDots/
+
+******************************************************************************************************/
+
 
 (function($) {
+
+	/**********************************************************************************
+
+		METHOD
+			ThreeDots {PUBLIC}
+
+		DESCRIPTION
+			ThreeDots method constructor
+			
+			allows for the customization of ellipsis, delimiters, etc., and smart 
+			truncation of provided objects' text
+					
+				e.g. $(something).ThreeDots();
+
+	**********************************************************************************/
+
 	$.fn.ThreeDots = function(options) {
 		var return_value = this;
 
@@ -19,6 +203,15 @@
 		
 		return return_value;
 	};
+
+	/**********************************************************************************
+
+		METHOD
+			ThreeDots.update {PUBLIC}
+
+		DESCRIPTION
+
+	**********************************************************************************/
 
 	// TODO: instead of having all options/settings calls be constructive have settings  
 	// associated w/ object returned also accessible from HERE [STATIC settings, 
@@ -34,7 +227,7 @@
 		if ((typeof options == 'object') || (options == undefined)) {
 
 			// then update the settings
-			// CURRENTLY, settings are not CONSTRUCTIVE, but applied to the DEFAULTS every time
+			// CURRENTLY, settings are not CONSTRUCTIVE, but merged with the DEFAULTS every time
 			$.fn.ThreeDots.c_settings = $.extend({}, $.fn.ThreeDots.settings, options);
 			var max_rows = $.fn.ThreeDots.c_settings.max_rows;
 			if (max_rows < 1) {
@@ -169,6 +362,16 @@
 		return $.fn.ThreeDots.the_selected;
 	};
 
+
+	/**********************************************************************************
+
+		METHOD
+			ThreeDots.settings {PUBLIC}
+
+		DESCRIPTION
+
+	**********************************************************************************/
+
 	$.fn.ThreeDots.settings = {
 		valid_delimiters: 	[' ', ',', '.'],		// what defines the bounds of a word to you?
 		ellipsis_string: 	'...',
@@ -180,6 +383,15 @@
 		alt_text_e: 		false,					// if true, mouse over of ellipsis displays the full text
 		alt_text_t: 		false  					// if true & if ellipsis displayed, mouse over of text displays the full text
 	};
+
+	/**********************************************************************************
+
+		METHOD
+			dangling_ellipsis {private}
+
+		DESCRIPTION
+
+	**********************************************************************************/
 
 	function dangling_ellipsis(obj){
 		if ($.fn.ThreeDots.c_settings.allow_dangle == true) {
@@ -206,6 +418,15 @@
 		}
 	}
 
+	/**********************************************************************************
+
+		METHOD
+			num_rows {private}
+
+		DESCRIPTION
+
+	**********************************************************************************/
+
 	function num_rows(obj){
 		// only need to calculate once
 		if (typeof this.paddingt == 'undefined') {
@@ -222,7 +443,17 @@
 		
 		return n_rows;
 	}
+
 	
+	/**********************************************************************************
+
+		METHOD
+			the_last_word {private}
+
+		DESCRIPTION
+
+	**********************************************************************************/
+
 	function the_last_word(str){
 		var temp_word_index;
 		var v_del = $.fn.ThreeDots.c_settings.valid_delimiters;
@@ -267,7 +498,17 @@
 			};
 		}
 	}
+
 			
+	/**********************************************************************************
+
+		METHOD
+			lineheight_px {private}
+
+		DESCRIPTION
+
+	**********************************************************************************/
+
 	function lineheight_px(obj) {
 		$(obj).append("<div id='temp_ellipsis_div' style='position:absolute; visibility:hidden'>H</div>");
 		var temp_height = $('#temp_ellipsis_div').height();
