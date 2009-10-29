@@ -3,7 +3,7 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0 (Developed in Aptana Studio 1.5.1)
+	Version 1.0.1 (Developed in Aptana Studio 1.5.1)
 	Date: 10/28/2009
 
 	Copyright (c) 2009 Jeremy Horn- jhorn(at)gmail(dot)c0m | http://tpgblog.com
