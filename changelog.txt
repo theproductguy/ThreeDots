@@ -1,4 +1,7 @@
 Changelog
 
 Version 1.0 - 2009.10.28
-Initial release. 
+Initial release.
+
+Version 1.0.1 - 2009.10.28
+[FIXED] num_row variable storage would result in erroneous calculations on variable padded and sized containers

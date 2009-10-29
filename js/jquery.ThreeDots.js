@@ -318,7 +318,7 @@
 					if (last_word != null) {
 						var is_dangling = dangling_ellipsis(curr_this);
 
-						if ((num_rows(curr_this) == max_rows - 1) 
+						if ((num_rows(curr_this) <= max_rows - 1) 
 							|| (is_dangling) 
 							|| (!$.fn.ThreeDots.c_settings.whole_word)) {
 
@@ -458,13 +458,10 @@
 	**********************************************************************************/
 
 	function num_rows(obj){
-		// only need to calculate once
-		if (typeof this.paddingt == 'undefined') {
-			// ASSUMPTION:  assuming padding returned ALWAYS in pixel scale 
-			this.paddingt 	= parseInt(($(obj).css('padding-top')).replace('px', ''));
-			this.paddingb 	= parseInt(($(obj).css('padding-bottom')).replace('px', ''));
-			this.lineheight	= lineheight_px($(obj));
-		}
+		// ASSUMPTION:  assuming padding returned ALWAYS in pixel scale 
+		var paddingt 	= parseInt(($(obj).css('padding-top')).replace('px', ''));
+		var paddingb 	= parseInt(($(obj).css('padding-bottom')).replace('px', ''));
+		var lineheight	= lineheight_px($(obj));
 		
 		// do the math
 		var innerh = parseInt($(obj).innerHeight()); // get the latest height
