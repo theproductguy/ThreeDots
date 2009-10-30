@@ -5,3 +5,7 @@ Initial release.
 
 Version 1.0.1 - 2009.10.28
 [FIXED] num_row variable storage would result in erroneous calculations on variable padded and sized containers
+
+Version 1.0.3 - 2009.10.30
+[UPDATE] major performance improvements for heavily truncated strings (by way of the_bisector() as a pre-processor for all text)
+[UPDATE] started putting versioning information in the minified plugin

@@ -3,8 +3,8 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0.1 (Developed in Aptana Studio 1.5.1)
-	Date: 10/28/2009
+	Version 1.0.3 (Developed in Aptana Studio 1.5.1)
+	Date: 10/30/2009
 
 	Copyright (c) 2009 Jeremy Horn- jhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
@@ -179,6 +179,8 @@
 	
 		Do not write any code dependent on the c_settings variable.  If you don't know what this is
 		cool -- you don't need to. ;-)  c_settings WILL BE DEPRECATED.
+		
+		Further optimizations in progress...
 
 ******************************************************************************************************/
 
@@ -277,6 +279,12 @@
 				}
 				curr_text_span = $(curr_this).children('.'+$.fn.ThreeDots.c_settings.text_span_class).get(0);
 
+				// pre-calc fixed components of num_rows
+				var nr_fixed = num_rows(curr_this, true);
+
+				// preprocessor
+				the_bisector(curr_this, curr_text_span, nr_fixed);
+
 				// remember where it all began so that we can see if we ended up exactly where we started
 				var init_text_span = $(curr_text_span).text();
 
@@ -293,7 +301,7 @@
 				}
 				$(curr_this).attr('threedots', last_text);
 
-				if (num_rows(curr_this) > max_rows) {
+				if (num_rows(curr_this, nr_fixed) > max_rows) {
 					// append the ellipsis span & remember the original text
 					curr_ellipsis = $(curr_this).append('<span style="white-space:nowrap" class="'	
 														+ $.fn.ThreeDots.c_settings.e_span_class + '">'
@@ -301,7 +309,7 @@
 														+ '</span>');
 	
 					// remove 1 word at a time UNTIL max_rows
-					while (num_rows(curr_this) > max_rows) {
+					while (num_rows(curr_this, nr_fixed) > max_rows) {
 						
 						lws = the_last_word($(curr_text_span).text());
 
@@ -312,13 +320,13 @@
 						if (lws.del == null) {
 							break;					
 						}
-					} // while (num_rows(curr_this) > max_rows)
+					} // while (num_rows(curr_this, nr_fixed) > max_rows)
 
 					// check for super long words
 					if (last_word != null) {
-						var is_dangling = dangling_ellipsis(curr_this);
+						var is_dangling = dangling_ellipsis(curr_this, nr_fixed);
 
-						if ((num_rows(curr_this) <= max_rows - 1) 
+						if ((num_rows(curr_this, nr_fixed) <= max_rows - 1) 
 							|| (is_dangling) 
 							|| (!$.fn.ThreeDots.c_settings.whole_word)) {
 
@@ -327,7 +335,7 @@
 								$(curr_text_span).text(last_text + last_del);
 							}
 									
-							if (num_rows(curr_this) > max_rows) {
+							if (num_rows(curr_this, nr_fixed) > max_rows) {
 								// undo what i just did and stop
 								$(curr_text_span).text(last_text);
 							} else {
@@ -335,11 +343,12 @@
 								$(curr_text_span).text($(curr_text_span).text() + last_word);
 								
 								// break up the last word IFF (1) word is longer than a line, OR (2) whole_word == false
-								if ((num_rows(curr_this) > max_rows + 1) 
+								if ((num_rows(curr_this, nr_fixed) > max_rows + 1) 
 									|| (!$.fn.ThreeDots.c_settings.whole_word)
+									|| (init_text_span == last_word)
 									|| is_dangling) {
 									// remove 1 char at a time until it all fits
-									while ((num_rows(curr_this) > max_rows)) {
+									while ((num_rows(curr_this, nr_fixed) > max_rows)) {
 										if ($(curr_text_span).text().length > 0) {
 											$(curr_text_span).text(
 												$(curr_text_span).text().substr(0, $(curr_text_span).text().length - 1)
@@ -421,7 +430,7 @@
 
 	**********************************************************************************/
 
-	function dangling_ellipsis(obj){
+	function dangling_ellipsis(obj, nr_fixed){
 		if ($.fn.ThreeDots.c_settings.allow_dangle == true) {
 			return false; // why do when no doing need be done?
 		}
@@ -429,11 +438,11 @@
 		// initialize variables
 		var ellipsis_obj 		= $(obj).children('.'+$.fn.ThreeDots.c_settings.e_span_class).get(0);
 		var remember_display 	= $(ellipsis_obj).css('display');
-		var num_rows_before 	= num_rows(obj);
+		var num_rows_before 	= num_rows(obj, nr_fixed);
 
 		// temporarily hide ellipsis
 		$(ellipsis_obj).css('display','none');
-		var num_rows_after 		= num_rows(obj);
+		var num_rows_after 		= num_rows(obj, nr_fixed);
 
 		// restore ellipsis
 		$(ellipsis_obj).css('display',remember_display);
@@ -453,22 +462,50 @@
 			num_rows {private}
 
 		DESCRIPTION
-			returns the number of rows/lines that the current object's text covers  
+			returns the number of rows/lines that the current object's text covers if
+			cstate is an object
+			
+			this function can be initially called to pre-calculate values that will 
+			stay fixed throughout the truncation process for the current object so
+			that the values do not have to be called every time; to do this the
+			num_rows function is called with a boolean value within the cstate
+			
+			when boolean cstate, an object is returned containing padding and line
+			height information that is then passed in as the cstate object on
+			subsequent calls to the function
 
 	**********************************************************************************/
 
-	function num_rows(obj){
-		// ASSUMPTION:  assuming padding returned ALWAYS in pixel scale 
-		var paddingt 	= parseInt(($(obj).css('padding-top')).replace('px', ''));
-		var paddingb 	= parseInt(($(obj).css('padding-bottom')).replace('px', ''));
-		var lineheight	= lineheight_px($(obj));
-		
-		// do the math
-		var innerh = parseInt($(obj).innerHeight()); // get the latest height
-		
-		var n_rows = (innerh - (paddingt + paddingb)) / lineheight;
-		
-		return n_rows;
+	function num_rows(obj, cstate){	
+		var the_type = typeof cstate;
+	
+		if (	(the_type == 'object') 
+			||	(the_type == undefined)	) {
+
+			var paddingt = 		cstate.pt;
+			var paddingb = 		cstate.pb;
+			var lineheight = 	cstate.lh;
+			
+			// do the math
+			var innerh = parseInt($(obj).innerHeight()); // get the latest height
+			
+			var n_rows = (innerh - (paddingt + paddingb)) / lineheight;
+			
+			return n_rows;
+			
+		} else if (the_type == 'boolean') {
+
+			// ASSUMPTION:  assuming padding returned ALWAYS in pixel scale 
+			var paddingt 	= parseInt(($(obj).css('padding-top')).replace('px', ''));
+			var paddingb 	= parseInt(($(obj).css('padding-bottom')).replace('px', ''));
+			var lineheight	= lineheight_px($(obj));
+			
+			return {
+				pt: paddingt,
+				pb: paddingb,
+				lh: lineheight
+			};
+		} 
 	}
 
 	
@@ -558,4 +595,66 @@
 
 		return temp_height;
 	}
+	
+	/**********************************************************************************
+
+		METHOD
+			the_bisector (private)
+
+		DESCRIPTION
+			updates the target objects current text to shortest overflowing string 
+			length (if overflowing is occurring) by adding/removing halves (like
+			binary search)
+
+			because...
+				taking some bigger steps at the beginning should save us some real 
+				time in the end
+
+	**********************************************************************************/
+	
+	function the_bisector(obj, curr_text_span, nr_fixed){
+		var init_text = $(curr_text_span).text();
+		var curr_text = init_text;
+		var max_rows = $.fn.ThreeDots.c_settings.max_rows;
+		var front_half, back_half, front_of_back_half, middle, back_middle;
+		var start_index;
+		
+		if (num_rows(obj, nr_fixed) < max_rows) {
+			// do nothing
+			return;
+		} else {
+			// zero in on the solution
+			start_index = 0;
+			curr_length = curr_text.length;
+
+			curr_middle = Math.floor((curr_length - start_index) / 2);
+			front_half = init_text.substring(start_index, start_index+curr_middle);
+			back_half = init_text.substring(start_index + curr_middle);
+				
+			while (curr_middle != 0) {
+				$(curr_text_span).text(front_half);
+				
+				if (num_rows(obj, nr_fixed) <= (max_rows)) {
+					// text = text + front half of back-half
+					back_middle 		= Math.floor(back_half.length/2);
+					front_of_back_half 	= back_half.substring(0, back_middle);
+					
+					start_index = front_half.length;
+					curr_text 	= front_half+front_of_back_half;
+					curr_length = curr_text.length;
+
+					$(curr_text_span).text(curr_text);
+				} else {
+					// text = front half (which it already is)
+					curr_text = front_half;
+					curr_length = curr_text.length;
+				}
+				
+				curr_middle = Math.floor((curr_length - start_index) / 2);
+				front_half = init_text.substring(0, start_index+curr_middle);
+				back_half = init_text.substring(start_index + curr_middle);
+			}
+		}
+	}
+	
 })(jQuery);
