@@ -7,5 +7,6 @@ Version 1.0.1 - 2009.10.28
 [FIXED] num_row variable storage would result in erroneous calculations on variable padded and sized containers
 
 Version 1.0.3 - 2009.10.30
-[UPDATE] major performance improvements for heavily truncated strings (by way of the_bisector() as a pre-processor for all text)
+[FIXED] optimized underlying algorithms for the significant improvement of ThreeDots' performance/speed via private pre-processing function the_bisector()
+[UPDATE] long word overflow logic more robust
 [UPDATE] started putting versioning information in the minified plugin
