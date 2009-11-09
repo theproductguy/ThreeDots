@@ -6,7 +6,7 @@
 	Version 1.0.3 (Developed in Aptana Studio 1.5.1)
 	Date: 10/30/2009
 
-	Copyright (c) 2009 Jeremy Horn- jhorn(at)gmail(dot)c0m | http://tpgblog.com
+	Copyright (c) 2009 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
 
 	For more detailed documentation, including the latest updates and links to more usage and 
