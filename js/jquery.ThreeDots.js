@@ -3,8 +3,8 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0.3 (Developed in Aptana Studio 1.5.1)
-	Date: 10/30/2009
+	Version 1.0.4 (Developed in Aptana Studio 1.5.1)
+	Date: 12/29/2009
 
 	Copyright (c) 2009 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
@@ -91,7 +91,8 @@
 					primary selector.
 					
 						e.g. $('container_object').ThreeDots();
-		
+					
+					So, remember to set container_object's WIDTH.
 						
 		ThreeDots.update()
 			Refreshes the contents of the text within the target object inline with the
@@ -619,7 +620,7 @@
 		var front_half, back_half, front_of_back_half, middle, back_middle;
 		var start_index;
 		
-		if (num_rows(obj, nr_fixed) < max_rows) {
+		if (num_rows(obj, nr_fixed) <= max_rows) {
 			// do nothing
 			return;
 		} else {

@@ -10,3 +10,6 @@ Version 1.0.3 - 2009.10.30
 [FIXED] optimized underlying algorithms for the significant improvement of ThreeDots' performance/speed via private pre-processing function the_bisector()
 [UPDATE] long word overflow logic more robust
 [UPDATE] started putting versioning information in the minified plugin
+
+Version 1.0.4 - 2009.12.29
+[FIXED] bug in bisector was incorrectly truncating lines <= max_rows limit (thanks Giuseppe)

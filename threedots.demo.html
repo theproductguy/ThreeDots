@@ -10,7 +10,7 @@
 		$(document).ready(function () {
 			// SECTION ONE: basic demos/tests //
 
-			// row 1
+			// row 1 & 1.5
 			var the_obj = $('.text_here').ThreeDots({
 				max_rows: 1
 			});
@@ -297,7 +297,6 @@ div {
 				<b>after</b>
 			</td>
 		</tr>
-		<tr>
 
 <!-- ------------------------------------------------------------------------- -->		
 <!-- ------------------------------------------------------------------------- -->		
@@ -307,8 +306,8 @@ div {
 <!-- ------------------------------------------------------------------------- -->		
 <!-- ------------------------------------------------------------------------- -->		
 
-			<!-- ROW 1, focus: basic functionality -->
-		
+		<!-- ROW 1, focus: basic functionality -->
+		<tr>		
 			<td align="left" valign="top">
 				[01] focus: basic functionality
 				<ol>
@@ -327,6 +326,26 @@ div {
 					<span class='ellipsis_text'>asd as daodsiajda dsafoiaf afsoiajsfas nfas 
 					fasofijasf asfoiajsfa sfaoijfasd asoidjasd 
 					asdaisjdads asodijasd asdoijasdiojsad</span>
+				</div>
+			</td>
+		</tr>
+		
+		<!-- ROW 1.5, focus: basic functionality -->
+		<tr>		
+			<td align="left" valign="top">
+				[01.5] focus: basic functionality; don't truncate
+				<ol>
+					<li>$('.text_here').ThreeDots({max_rows:1});</li>
+				</ol>
+			</td>
+			<td align="left" valign="top">
+				<div style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>asd as daodsiajda</span>
+				</div>
+			</td>
+			<td align="left" valign="top">
+				<div class="text_here" style="padding: 5em; margin: 2em; width:220px">
+					<span class='ellipsis_text'>asd as daodsiajda</span>
 				</div>
 			</td>
 		</tr>
