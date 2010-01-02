@@ -3,10 +3,10 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0.4 (Developed in Aptana Studio 1.5.1)
-	Date: 12/29/2009
+	Version 1.0.5 (Developed in Aptana Studio 1.5.1)
+	Date: 1/2/2010
 
-	Copyright (c) 2009 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
+	Copyright (c) 2010 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
 
 	For more detailed documentation, including the latest updates and links to more usage and 
@@ -14,6 +14,9 @@
 	
 			http://tpgblog.com/ThreeDots/
 
+	KNOWN BUGS
+		- jQuery/Chrome bug: returns wrong padding values for text container
+		  (workaround: set padding on container to ZERO (0))
 
 	DESCRIPTION
 
@@ -312,13 +315,12 @@
 					// remove 1 word at a time UNTIL max_rows
 					while (num_rows(curr_this, nr_fixed) > max_rows) {
 						
-						lws = the_last_word($(curr_text_span).text());
-
+						lws = the_last_word($(curr_text_span).text());// HERE
 						$(curr_text_span).text(lws.updated_string);
 						last_word = lws.word;
 						last_del = lws.del;
 
-						if (lws.del == null) {
+						if (last_del == null) {
 							break;					
 						}
 					} // while (num_rows(curr_this, nr_fixed) > max_rows)
@@ -491,16 +493,28 @@
 			var innerh = parseInt($(obj).innerHeight()); // get the latest height
 			
 			var n_rows = (innerh - (paddingt + paddingb)) / lineheight;
-			
+
 			return n_rows;
 			
 		} else if (the_type == 'boolean') {
+			var pret = $(obj).css('padding-top');
+			var preb = $(obj).css('padding-bottom');
 
-			// ASSUMPTION:  assuming padding returned ALWAYS in pixel scale 
-			var paddingt 	= parseInt(($(obj).css('padding-top')).replace('px', ''));
-			var paddingb 	= parseInt(($(obj).css('padding-bottom')).replace('px', ''));
+			// padding is not returned in PIXEL form in Chrome browser
+			var paddingt 	= parseInt((pret).replace('px', ''));
+			var paddingb 	= parseInt((preb).replace('px', ''));
 			var lineheight	= lineheight_px($(obj));
-			
+
+			// Chrome & EM adjustment
+			var em_check = pret.match(/(em)$/);
+			if (em_check != null) {
+				paddingt *= lineheight;
+				paddingb *= lineheight;
+			}
+
+			// Chrome/jQuery BUG:  padding values are incorrect
+			// Workaround: set padding of container object to ZERO
+
 			return {
 				pt: paddingt,
 				pb: paddingb,
