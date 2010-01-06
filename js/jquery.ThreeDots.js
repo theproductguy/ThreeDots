@@ -3,8 +3,8 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0.5 (Developed in Aptana Studio 1.5.1)
-	Date: 1/2/2010
+	Version 1.0.6 (Developed in Aptana Studio 1.5.1)
+	Date: 1/6/2010
 
 	Copyright (c) 2010 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
@@ -63,7 +63,7 @@
 
 	COMPATIBILITY
 
-		Tested in FF3.5, IE7
+		Tested in FF3.5, IE7, Chrome3
 		With jQuery 1.3.2
 
 	METHODS
@@ -286,11 +286,11 @@
 				// pre-calc fixed components of num_rows
 				var nr_fixed = num_rows(curr_this, true);
 
-				// preprocessor
-				the_bisector(curr_this, curr_text_span, nr_fixed);
-
 				// remember where it all began so that we can see if we ended up exactly where we started
 				var init_text_span = $(curr_text_span).text();
+
+				// preprocessor
+				the_bisector(curr_this, curr_text_span, nr_fixed);
 
 				// if the object has been initialized, then user must be calling UPDATE
 				// THEREFORE refresh the text area before re-operating

@@ -14,5 +14,8 @@ Version 1.0.3 - 2009.10.30
 Version 1.0.4 - 2009.12.29
 [FIXED] bug in bisector was incorrectly truncating lines <= max_rows limit (thanks Giuseppe)
 
-Version 1.0.5 - 2009.01.02
+Version 1.0.5 - 2010.01.02
 [FIXED] handle 'em' values returned where previously assumed always 'px' returned (for Chrome)
+
+Version 1.0.6 - 2010.01.06
+[FIXED] fixed saving of saved original text (thanks Yvo)
