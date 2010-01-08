@@ -3,8 +3,8 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0.6 (Developed in Aptana Studio 1.5.1)
-	Date: 1/6/2010
+	Version 1.0.7 (Developed in Aptana Studio 1.5.1)
+	Date: 1/8/2010
 
 	Copyright (c) 2010 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
@@ -291,6 +291,7 @@
 
 				// preprocessor
 				the_bisector(curr_this, curr_text_span, nr_fixed);
+				var init_post_b = $(curr_text_span).text();
 
 				// if the object has been initialized, then user must be calling UPDATE
 				// THEREFORE refresh the text area before re-operating
@@ -348,7 +349,7 @@
 								// break up the last word IFF (1) word is longer than a line, OR (2) whole_word == false
 								if ((num_rows(curr_this, nr_fixed) > max_rows + 1) 
 									|| (!$.fn.ThreeDots.c_settings.whole_word)
-									|| (init_text_span == last_word)
+									|| (init_post_b == last_word)
 									|| is_dangling) {
 									// remove 1 char at a time until it all fits
 									while ((num_rows(curr_this, nr_fixed) > max_rows)) {

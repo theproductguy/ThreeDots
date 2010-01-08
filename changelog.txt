@@ -19,3 +19,6 @@ Version 1.0.5 - 2010.01.02
 
 Version 1.0.6 - 2010.01.06
 [FIXED] fixed saving of saved original text (thanks Yvo)
+
+Version 1.0.7 - 2010.01.08
+[FIXED] edge condition concerning super long words
