@@ -3,8 +3,8 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0.7 (Developed in Aptana Studio 1.5.1)
-	Date: 1/8/2010
+	Version 1.0.9 (Developed in Aptana Studio 1.5.1)
+	Date: 1/22/2010
 
 	Copyright (c) 2010 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
@@ -15,8 +15,7 @@
 			http://tpgblog.com/ThreeDots/
 
 	KNOWN BUGS
-		- jQuery/Chrome bug: returns wrong padding values for text container
-		  (workaround: set padding on container to ZERO (0))
+		None
 
 	DESCRIPTION
 
@@ -63,8 +62,8 @@
 
 	COMPATIBILITY
 
-		Tested in FF3.5, IE7, Chrome3
-		With jQuery 1.3.2
+		Tested in FF3.5, IE7, Chrome
+		With jQuery 1.3.x, 1.4
 
 	METHODS
 
@@ -486,39 +485,13 @@
 		if (	(the_type == 'object') 
 			||	(the_type == undefined)	) {
 
-			var paddingt = 		cstate.pt;
-			var paddingb = 		cstate.pb;
-			var lineheight = 	cstate.lh;
-			
-			// do the math
-			var innerh = parseInt($(obj).innerHeight()); // get the latest height
-			
-			var n_rows = (innerh - (paddingt + paddingb)) / lineheight;
-
-			return n_rows;
+			// do the math & return
+			return $(obj).height() / cstate.lh;
 			
 		} else if (the_type == 'boolean') {
-			var pret = $(obj).css('padding-top');
-			var preb = $(obj).css('padding-bottom');
-
-			// padding is not returned in PIXEL form in Chrome browser
-			var paddingt 	= parseInt((pret).replace('px', ''));
-			var paddingb 	= parseInt((preb).replace('px', ''));
 			var lineheight	= lineheight_px($(obj));
 
-			// Chrome & EM adjustment
-			var em_check = pret.match(/(em)$/);
-			if (em_check != null) {
-				paddingt *= lineheight;
-				paddingb *= lineheight;
-			}
-
-			// Chrome/jQuery BUG:  padding values are incorrect
-			// Workaround: set padding of container object to ZERO
-
 			return {
-				pt: paddingt,
-				pb: paddingb,
 				lh: lineheight
 			};
 		} 
