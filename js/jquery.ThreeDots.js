@@ -3,8 +3,8 @@
 	jQuery.ThreeDots
 
 	Author Jeremy Horn
-	Version 1.0.9 (Developed in Aptana Studio 1.5.1)
-	Date: 1/22/2010
+	Version 1.0.10 (Developed in Aptana Studio 1.5.1)
+	Date: 1/25/2010
 
 	Copyright (c) 2010 Jeremy Horn- jeremydhorn(at)gmail(dot)c0m | http://tpgblog.com
 	Dual licensed under MIT and GPL.
@@ -303,7 +303,7 @@
 				if (last_text.length <= 0) {
 					last_text = '';
 				}
-				$(curr_this).attr('threedots', last_text);
+				$(curr_this).attr('threedots', init_text_span);
 
 				if (num_rows(curr_this, nr_fixed) > max_rows) {
 					// append the ellipsis span & remember the original text
