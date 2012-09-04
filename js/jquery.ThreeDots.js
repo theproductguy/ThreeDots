@@ -205,14 +205,14 @@
 
 	**********************************************************************************/
 
-	$.fn.ThreeDots = function(options) {
+	$.fn.ThreeDots = function(options, callback) {
 		var return_value = this;
 
 		// check for new & valid options
 		if ((typeof options == 'object') || (options == undefined)) {
 			$.fn.ThreeDots.the_selected = this;
 
-			var return_value = $.fn.ThreeDots.update(options);
+			var return_value = $.fn.ThreeDots.update(options, callback);
 
 		}
 		
@@ -240,7 +240,7 @@
 
 	**********************************************************************************/
 
-	$.fn.ThreeDots.update = function(options) {
+	$.fn.ThreeDots.update = function(options, callback) {
 		// initialize local variables
 		var curr_this, last_word = null;
 		var lineh, paddingt, paddingb, innerh, temp_height;
@@ -386,6 +386,12 @@
 						}
 						
 					}
+				}
+
+				// First check whether there is a callback to execute.
+				if (callback) {
+					// Pass in the current item to have 'this' scope within the callback.
+					callback.apply(curr_this);
 				}
 			}); // $.fn.ThreeDots.the_selected.each(function() 
 		}
