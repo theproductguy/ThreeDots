@@ -387,13 +387,13 @@
 						
 					}
 				}
-			}); // $.fn.ThreeDots.the_selected.each(function() 
-		}
 
-		// First check whether there is a callback to execute.
-		if (callback) {
-			// Pass in the_selected to have 'this' scope within the callback.
-			callback.apply($.fn.ThreeDots.the_selected);
+				// First check whether there is a callback to execute.
+				if (callback) {
+					// Pass in the current item to have 'this' scope within the callback.
+					callback.apply(curr_this);
+				}
+			}); // $.fn.ThreeDots.the_selected.each(function() 
 		}
 
 		return $.fn.ThreeDots.the_selected;
