@@ -307,7 +307,7 @@
 
 				if (num_rows(curr_this, nr_fixed) > max_rows) {
 					// append the ellipsis span & remember the original text
-					curr_ellipsis = $(curr_this).append('<span style="white-space:nowrap" class="'	
+					var curr_ellipsis = $(curr_this).append('<span style="white-space:nowrap" class="'
 														+ $.fn.ThreeDots.c_settings.e_span_class + '">'
 														+ $.fn.ThreeDots.c_settings.ellipsis_string 
 														+ '</span>');
@@ -606,7 +606,7 @@
 		var curr_text = init_text;
 		var max_rows = $.fn.ThreeDots.c_settings.max_rows;
 		var front_half, back_half, front_of_back_half, middle, back_middle;
-		var start_index;
+		var start_index, curr_length, curr_middle;
 		
 		if (num_rows(obj, nr_fixed) <= max_rows) {
 			// do nothing
