@@ -286,7 +286,7 @@
 				var nr_fixed = num_rows(curr_this, true);
 
 				// remember where it all began so that we can see if we ended up exactly where we started
-				var init_text_span = $(curr_text_span).text();
+				var init_text_span = ($(curr_this).attr('threedots') === undefined)? $(curr_text_span).text() : $(curr_this).attr('threedots');
 
 				// preprocessor
 				the_bisector(curr_this, curr_text_span, nr_fixed);
